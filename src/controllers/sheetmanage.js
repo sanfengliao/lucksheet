@@ -185,6 +185,7 @@ const sheetmanage = {
         return curindex;
     },
     getCurSheet: function() {
+        // 如果传入了sheet数据, 获取status为1的数据
         if (Store.luckysheetfile.length) {
             let hasActive = false, indexs = []
             Store.luckysheetfile.forEach(item => {
@@ -212,8 +213,10 @@ const sheetmanage = {
                 Store.luckysheetfile[0].status = 1
             }
         }
+        // 将第一个sheet作为当前正在渲染的sheet
         Store.currentSheetIndex = Store.luckysheetfile[0].index;
 
+        // 将第一个status是1的sheet作为正在渲染的sheet
         for (let i = 0; i < Store.luckysheetfile.length; i++) {
             if (Store.luckysheetfile[i].status == 1) {
                 Store.currentSheetIndex = Store.luckysheetfile[i].index;
@@ -727,20 +730,24 @@ const sheetmanage = {
     },
     initialjfFile: function(menu, title) {
         let _this = this;
-
+        // 获取当前需要渲染的sheet数据
         _this.getCurSheet();
+        // 获取当前需要渲染的sheet文件
         let file = Store.luckysheetfile[_this.getSheetIndex(Store.currentSheetIndex)];
+        // 初始化defaultrowNum * defaultcolumnNum的， 数据为空的二维数组
         _this.nulldata = datagridgrowth([], Store.defaultrowNum, Store.defaultcolumnNum);
+        // 将要渲染的sheet的数据填充到刚刚初始好的二维数组
         let data = _this.buildGridData(file);
 
         //初始化的时候 记录选区
+        // 好像是用来记录哪个区域被选中了的
         let select_save = [];
         file.jfgird_select_save = file.jfgird_select_save || [];
         file.jfgird_select_save.forEach(item=>select_save.push({"row":item.row,"column":item.column}));
         file.luckysheet_select_save = select_save;
         
         this.sheetParamRestore(file, data);
-
+        
         let r2 = Store.luckysheet_select_save[0].row[1], 
             c2 = Store.luckysheet_select_save[0].column[1];
         
@@ -756,10 +763,13 @@ const sheetmanage = {
             }
         }
 
+        // 加载字体的
         menuButton.fontInitial(Store.fontList);//initial font
 
+        // 存储当前sheet文件的数据
         file.data = data;
 
+        // 判断选中单元格的最大横坐标/纵坐标是否大于数据的宽高
         let rowheight = data.length;
         if(r2 > rowheight - 1){
             rowheight = r2 + 1;
@@ -862,16 +872,16 @@ const sheetmanage = {
 
                     arrayRemoveItem(Store.asyncLoad,'core');
 
-                    if(luckysheetConfigsetting.pointEdit){
-                        setTimeout(function(){
-                            Store.loadingObj.close()
-                        }, 0);
-                    }
-                    else{
-                        setTimeout(function(){
-                            Store.loadingObj.close()
-                        }, 500);
-                    }
+                    // if(luckysheetConfigsetting.pointEdit){
+                    //     setTimeout(function(){
+                    //         Store.loadingObj.close()
+                    //     }, 0);
+                    // }
+                    // else{
+                    //     setTimeout(function(){
+                    //         Store.loadingObj.close()
+                    //     }, 500);
+                    // }
                 }
 
                 let loadSheetUrl = server.loadSheetUrl;

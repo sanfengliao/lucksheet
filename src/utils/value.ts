@@ -1,0 +1,1 @@
+export const isNil = (val: any) => typeof val === 'undefined' || val === null;

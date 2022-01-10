@@ -154,6 +154,7 @@ luckysheet.create = function (setting) {
     initPlugins(extendsetting.plugins , extendsetting.data);
 
     // Store formula information, including internationalization
+    // 根据国际化数据functionlist里面的
     functionlist();
 
     let devicePixelRatio = extendsetting.devicePixelRatio;
@@ -162,9 +163,9 @@ luckysheet.create = function (setting) {
     }
     Store.devicePixelRatio = Math.ceil(devicePixelRatio);
 
-    //loading
-    const loadingObj=luckysheetlodingHTML("#" + container)
-    Store.loadingObj=loadingObj
+    // 加载Loading的动画
+    // const loadingObj=luckysheetlodingHTML("#" + container)
+    // Store.loadingObj=loadingObj
 
     if (loadurl == "") {
         sheetmanage.initialjfFile(menu, title);

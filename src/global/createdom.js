@@ -31,6 +31,7 @@ export default function luckysheetcreatedom(colwidth, rowheight, data, menu, tit
     //     colwidth = 22;
     // }
 
+    // 骨架html
     let gh = gridHTML();
     gh = replaceHtml(gh, { "logotitle": title });//设置title
     gh = replaceHtml(gh, { "menu": menuToolBar() });//设置需要显示的菜单

@@ -15,7 +15,6 @@ function setcellvalue(r, c, d, v) {
     let cell = d[r][c];
 
     let vupdate;
-
     if(getObjType(v) == "object"){
         if(cell == null){
             cell = v;
